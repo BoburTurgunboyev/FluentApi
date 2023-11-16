@@ -31,7 +31,10 @@ namespace FluentAPI.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Angren");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -53,14 +56,18 @@ namespace FluentAPI.Migrations
 
                     b.Property<string>("GivenDay")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("2023");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("propiska");
                 });
@@ -75,18 +82,19 @@ namespace FluentAPI.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasDefaultValue("Unknown");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PropiskaId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasDefaultValue("Unknown");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PropiskaId");
 
                     b.ToTable("users");
                 });
@@ -105,8 +113,8 @@ namespace FluentAPI.Migrations
             modelBuilder.Entity("FluentAPI.Entities.Propiska", b =>
                 {
                     b.HasOne("FluentAPI.Entities.Users", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Propiska")
+                        .HasForeignKey("FluentAPI.Entities.Propiska", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -115,18 +123,10 @@ namespace FluentAPI.Migrations
 
             modelBuilder.Entity("FluentAPI.Entities.Users", b =>
                 {
-                    b.HasOne("FluentAPI.Entities.Propiska", "Propiska")
-                        .WithMany()
-                        .HasForeignKey("PropiskaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Propiska");
-                });
-
-            modelBuilder.Entity("FluentAPI.Entities.Users", b =>
-                {
                     b.Navigation("Home");
+
+                    b.Navigation("Propiska")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
