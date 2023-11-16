@@ -7,7 +7,8 @@ namespace FluentAPI.Entities
         public int Id { get; set; }
         public string GivenDay { get; set; }
 
-        [ForeignKey("UserId")]
+        
+        public int UserId { get; set; }
         public Users User { get; set; } 
     }
 }
