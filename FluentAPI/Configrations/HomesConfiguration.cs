@@ -18,8 +18,8 @@ namespace FluentAPI.Configrations
 
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Home)
-                .HasForeignKey(x => x.Id)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
