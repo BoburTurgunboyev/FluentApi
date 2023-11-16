@@ -18,7 +18,7 @@ namespace FluentAPI.Configrations
             builder.HasOne(builder => builder.User)
                 .WithOne(builder => builder.Propiska)
                 .HasForeignKey<Users>(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);   
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 
