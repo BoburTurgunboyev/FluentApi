@@ -8,7 +8,6 @@ namespace FluentAPI.Entities
         public string Location {  get; set; }
 
         [ForeignKey("UserId")]
-
         public Users User { get; set; }
     }
 }
