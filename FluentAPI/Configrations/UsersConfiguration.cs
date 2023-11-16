@@ -12,22 +12,22 @@ namespace FluentAPI.Configrations
 
             builder.Property(x => x.FirstName)
                 .HasMaxLength(30)
-                .HasDefaultValue("Unknown")
+                .HasDefaultValue("Irakl")
                 .IsRequired();
 
             builder.Property(x => x.LastName)
                 .HasMaxLength(30)
-                .HasDefaultValue("Unknown")
+                .HasDefaultValue("Jokker")
                 .IsRequired();
 
             builder.HasOne(x => x.Propiska)
                 .WithOne(x => x.User)
-                .HasForeignKey<Propiska>(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey<Propiska>(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             builder.HasMany(x =>x.Home)
                 .WithOne(x =>x.User)
-                .HasForeignKey(x => x.Id)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
