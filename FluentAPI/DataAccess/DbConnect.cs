@@ -1,5 +1,6 @@
 ﻿using FluentAPI.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FluentAPI.DataAccess
 {
@@ -10,5 +11,10 @@ namespace FluentAPI.DataAccess
         public DbSet<Homes> homes { get; set; }
         public DbSet<Propiska> propiska { get; set; }   
         public DbSet<Users> users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetCallingAssembly());
+        }
     }
 }
