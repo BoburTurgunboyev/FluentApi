@@ -1,4 +1,5 @@
-﻿using FluentAPI.Entities;
+﻿using FluentAPI.Configrations;
+using FluentAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -12,9 +13,16 @@ namespace FluentAPI.DataAccess
         public DbSet<Propiska> propiska { get; set; }   
         public DbSet<Users> users { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetCallingAssembly());
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.ApplyConfiguration(new UsersConfiguration());
+            modelBuilder.ApplyConfiguration(new HomesConfiguration());  
+            modelBuilder.ApplyConfiguration(new PrapiskaConfiguration());
+
         }
     }
 }
